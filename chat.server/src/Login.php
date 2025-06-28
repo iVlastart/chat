@@ -10,10 +10,16 @@
             $this->conn = $db->connect();
         }
 
-        public function login()
+        public function login():bool
         {
-            $sql = "SELECT Username, Password FROM users WHERE Username=:Username AND Password=:Password";
+            $sql = "SELECT Username, Password FROM users WHERE Username=:Username";
             $stmt = $this->conn->prepare($sql);
-            
+            $stmt->bindValue(":Username", $this->username, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if(!$result) return false;
+            else
+                return password_verify($this->password, $result["Password"]);
         }
     }

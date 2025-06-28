@@ -6,6 +6,9 @@
     });
     require_once __DIR__ . '/vendor/autoload.php';
     header('Content-Type: application/json');
+    header("Access-Control-Allow-Origin: http://localhost:5173");
+    header("Access-Control-Allow-Headers: Content-Type");
+    header("Access-Control-Allow-Methods: GET, POST");
 
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->load();
@@ -18,5 +21,10 @@
 
     if($parts[1]==='login'&&$method==='POST')
     {
-        
+        $raw_data = file_get_contents('php://input');
+        $data = json_decode($raw_data,true);
+        $login = new Login($db, htmlspecialchars($data['username'])??'', 
+                            htmlspecialchars($data['password'])??'');
+        echo json_encode(["success"=>$login->login()]);
+        exit;
     }

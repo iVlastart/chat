@@ -1,17 +1,44 @@
+import { useNavigate } from 'react-router-dom';
+
 interface LoginFormProps
 {
     isLogin:boolean
-    onSubmit:any
 }
 
-export default function LoginForm({isLogin, onSubmit}:LoginFormProps)
+export default function LoginForm({isLogin}:LoginFormProps)
 {
+    const nav = useNavigate();
+    const submit = async (username:string, password:string)=>{
+        try
+        {
+            const resp = await fetch(`http://127.0.0.1:8080/${isLogin?"login":"signin"}`,{
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({username, password})
+            });
 
-    const sendData=(e:any)=>{
+            if(!resp.ok)
+            {
+                const err = await resp.json();
+                console.log("Resp error: "+err);
+                return;
+            }
+
+            const data = await resp.json();
+
+            if(data.success) nav('/chat');
+        }
+        catch(err)
+        {
+            console.log("submit error: "+err);
+        }
+    };
+    const sendData=(e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        const username:string = e.target.txtUsername.value;
-        const password:string = e.target.pswPassword.value;
-        onSubmit(username, password);
+        const form = e.target as HTMLFormElement;
+        const username:string = (form.elements.namedItem('txtUsername') as HTMLInputElement).value;
+        const password:string = (form.elements.namedItem('pswPassword') as HTMLInputElement).value;
+        submit(username,password);
     }
     return(
         <>
@@ -23,7 +50,7 @@ export default function LoginForm({isLogin, onSubmit}:LoginFormProps)
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST" onSubmit={sendData}>
+                    <form className="space-y-6" method="POST" onSubmit={sendData}>
                         <div>
                             <div className="mt-2">
                                 <input type="text" id="txtUsername" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
