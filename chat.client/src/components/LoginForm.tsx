@@ -26,7 +26,7 @@ export default function LoginForm({isLogin}:LoginFormProps)
 
             const data = await resp.json();
 
-            if(data.success) nav('/chat');
+            if(data.success) nav('/home');
         }
         catch(err)
         {

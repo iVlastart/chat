@@ -28,3 +28,12 @@
         echo json_encode(["success"=>$login->login()]);
         exit;
     }
+    else if($parts[1]==='signin'&&$method==='POST')
+    {
+        $raw_data = file_get_contents('php://input');
+        $data = json_decode($raw_data, true);
+        $signin = new Signin($db, htmlspecialchars($data['username'])??'',
+                            htmlspecialchars($data['password'])??'');
+        echo json_encode(["success"=>$signin->signin()]);
+        exit;
+    }
