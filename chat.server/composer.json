@@ -1,0 +1,20 @@
+{
+    "name": "vlasta/chat.server",
+    "description": "A backend for my chat web app",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Vlasta\\ChatServer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Vlasta Vašut",
+            "email": "vasutvlasta@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
