@@ -26,6 +26,7 @@
         $login = new Login($db, htmlspecialchars($data['username'])??'', 
                             htmlspecialchars($data['password'])??'');
         echo json_encode(["success"=>$login->login()]);
+        $_SESSION['username']=$data['username'];
         exit;
     }
     else if($parts[1]==='signin'&&$method==='POST')
@@ -35,5 +36,6 @@
         $signin = new Signin($db, htmlspecialchars($data['username'])??'',
                             htmlspecialchars($data['password'])??'');
         echo json_encode(["success"=>$signin->signin()]);
+        $_SESSION['username']=$data['username'];
         exit;
     }

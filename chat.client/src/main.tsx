@@ -8,8 +8,11 @@ import Home from './App/Home';
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Routes>
+      {/*Auth routes*/}
       <Route path='login' element={<Login/>}/>
       <Route path='signin' element={<Signin/>}/>
+
+      {/*App routes*/}
       <Route path='home' element={<Home/>}/>
     </Routes>
   </BrowserRouter>
