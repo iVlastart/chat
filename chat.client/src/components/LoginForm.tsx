@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface LoginFormProps
@@ -27,6 +28,8 @@ export default function LoginForm({isLogin}:LoginFormProps)
             const data = await resp.json();
 
             if(data.success) nav('/home');
+
+            sessionStorage.setItem('username', username);
         }
         catch(err)
         {
@@ -40,6 +43,10 @@ export default function LoginForm({isLogin}:LoginFormProps)
         const password:string = (form.elements.namedItem('pswPassword') as HTMLInputElement).value;
         submit(username,password);
     }
+
+    useEffect(()=>{
+        if(sessionStorage.getItem('username')) nav('/');
+    });
     return(
         <>
             <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

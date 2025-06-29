@@ -28,7 +28,6 @@
         $data = json_decode($raw_data,true);
         $login = new Login($db, htmlspecialchars($data['username'])??'', 
                             htmlspecialchars($data['password'])??'');
-        $_SESSION['username']=htmlspecialchars($data['username']);
         echo json_encode(["success"=>$login->login()]);
         exit;
     }
@@ -38,19 +37,6 @@
         $data = json_decode($raw_data, true);
         $signin = new Signin($db, htmlspecialchars($data['username'])??'',
                             htmlspecialchars($data['password'])??'');
-        $_SESSION['username']=htmlspecialchars($data['username']);
         echo json_encode(["success"=>$signin->signin()]);
-        exit;
-    }
-    else if($parts[1]==='checkSession'&&$method==='GET')
-    {
-        $sessionController = new SessionController();
-        echo json_encode(['checkSession'=>$sessionController->checkSession()]);
-        exit;
-    }
-    else if($parts[1]==='getSessionUser'&&$method==='GET')
-    {
-        $sessionController = new SessionController();
-        echo json_encode(['getSessionUser'=>$sessionController->getSessionUser()]);
         exit;
     }
