@@ -1,8 +1,6 @@
 <?php
     use Dotenv\Dotenv;
 
-    session_start();
-
     spl_autoload_register(function($class){
         require_once __DIR__ . "/src/$class.php"; 
     });
@@ -38,5 +36,16 @@
         $signin = new Signin($db, htmlspecialchars($data['username'])??'',
                             htmlspecialchars($data['password'])??'');
         echo json_encode(["success"=>$signin->signin()]);
+        exit;
+    }
+    else if($parts[1]==='getUser'&&$method==='GET')
+    {
+        if($parts[2]==="")
+        {
+            http_response_code(400);
+            echo json_encode(["error"=>"empty username"]);
+            exit;
+        }
+        $user = new User($db, $parts[2]);
         exit;
     }

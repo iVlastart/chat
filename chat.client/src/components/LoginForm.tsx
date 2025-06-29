@@ -27,7 +27,7 @@ export default function LoginForm({isLogin}:LoginFormProps)
 
             const data = await resp.json();
 
-            if(data.success) nav('/home');
+            if(data.success) nav('/');
 
             sessionStorage.setItem('username', username);
         }
