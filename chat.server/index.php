@@ -1,6 +1,7 @@
 <?php
-    use Dotenv\Dotenv;
     session_start();
+    use Dotenv\Dotenv;
+    
     spl_autoload_register(function($class){
         require_once __DIR__ . "/src/$class.php"; 
     });
@@ -16,7 +17,6 @@
 
     $parts = explode('/', $_SERVER["REQUEST_URI"]);
     $method = $_SERVER['REQUEST_METHOD'];
-    $username = "";
 
     $db = new Db($_ENV["HOSTNAME"], $_ENV["DBNAME"],
                 $_ENV["USERNAME"], $_ENV["PASSWORD"]);
@@ -27,7 +27,7 @@
         $data = json_decode($raw_data,true);
         $login = new Login($db, htmlspecialchars($data['username'])??'', 
                             htmlspecialchars($data['password'])??'');
-        $username = $data['username'];
+        $_SESSION['user'] = $data['username'];
         echo json_encode(["success"=>$login->login()]);
         exit;
     }
@@ -37,7 +37,7 @@
         $data = json_decode($raw_data, true);
         $signin = new Signin($db, htmlspecialchars($data['username'])??'',
                             htmlspecialchars($data['password'])??'');
-        $username = $data['username'];
+        $_SESSION['user'] = $data['username'];
         echo json_encode(["success"=>$signin->signin()]);
         exit;
     }
@@ -58,6 +58,9 @@
     //decided to have this one just for test purposes
     else if($parts[1]==="test"&&$method==='GET')
     {
-        echo json_encode(["username"=>$username??"guest"]);
+        echo json_encode(["username" => $_SESSION['user'] ?? null,
+            "session_id" => session_id(),
+            "session_data" => $_SESSION
+        ]);
         exit;
     }

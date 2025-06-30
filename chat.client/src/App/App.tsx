@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Friends from '../pages/Friends';
 
+let pageTitle = "";
 const NAVIGATION = [
   {
     kind: 'header',
@@ -65,9 +66,11 @@ function PageContent({ pathname }: { pathname: string }) {
   const nav = useNavigate();
   switch (pathname) {
     case '/':
+      pageTitle = 'Friends';
       return <Friends/>;
 
     case '/chat':
+      pageTitle = 'Chat';
       return <div>Here is going to be the chat</div>;
 
     case '/logout':
@@ -79,25 +82,23 @@ function PageContent({ pathname }: { pathname: string }) {
   }
 }
 
-export default function App(props:any) {
-  const { window } = props;
+export default function App() {
   const router = useDemoRouter('/');
   const nav = useNavigate();
-  // Remove this const when copying and pasting into your project.
-  const demoWindow = window ? window() : undefined;
 
   useEffect(()=>{
     if(!sessionStorage.getItem('username')) nav('/login');
   });
+  useEffect(() => {
+    document.title = `Chat App / ${pageTitle}`;
+  }, [router.pathname]);
 
   return (
     <AppProvider
       navigation={NAVIGATION as any}
       router={router}
       theme={demoTheme}
-      window={demoWindow}
     >
-      <title>Chat App</title>
       <DashboardLayout>
         <PageContainer>
           <Grid container spacing={2}>
