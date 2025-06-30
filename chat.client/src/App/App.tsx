@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createTheme } from '@mui/material/styles';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MessageIcon from "@mui/icons-material/Message"
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { PageContainer } from '@toolpad/core/PageContainer';
@@ -22,9 +23,9 @@ const NAVIGATION = [
     icon: <EmojiPeopleIcon/>,
   },
   {
-    segment: 'orders',
-    title: 'Orders',
-    icon: <ShoppingCartIcon />,
+    segment: 'chat',
+    title: 'Chat',
+    icon: <MessageIcon />,
   }
 ];
 
@@ -63,29 +64,8 @@ function PageContent({ pathname }: { pathname: string }) {
     case '/':
       return <Friends/>;
 
-    case '/orders':
-      return <div>Here are your Orders</div>;
-
-    case '/reports/sales':
-      return (
-        <iframe
-          src="https://example.com/sales-report"
-          style={{ width: '100%', height: '500px', border: 'none' }}
-          title="Sales Report"
-        />
-      );
-
-    case '/reports/traffic':
-      return (
-        <iframe
-          src="https://example.com/traffic-report"
-          style={{ width: '100%', height: '500px', border: 'none' }}
-          title="Traffic Report"
-        />
-      );
-
-    case '/integrations':
-      return <div>Integrations content goes here.</div>;
+    case '/chat':
+      return <div>Here is going to be the chat</div>;
 
     default:
       return <div>404 - Page not found</div>;

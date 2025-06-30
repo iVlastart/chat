@@ -11,8 +11,20 @@
 
         public function getFriends()
         {
-            $sql = "SELECT * FROM areFriends WHERE userID=:userID AND userID2=:userID2";
-            
+            $sql = "SELECT Username FROM users WHERE ID=:ID";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(":ID", $this->getFriendsID(), PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        private function getFriendsID()
+        {
+            $sql = "SELECT friendID FROM areFriends WHERE userID=:userID";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(":userID", $this->getUserID(), PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         private function getUserID()
         {

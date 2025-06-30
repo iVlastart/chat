@@ -38,14 +38,15 @@
         echo json_encode(["success"=>$signin->signin()]);
         exit;
     }
-    else if($parts[1]==='getUser'&&$method==='GET')
+    else if($parts[1]==='friends'&&$method==='GET')
     {
         if($parts[2]==="")
         {
             http_response_code(400);
-            echo json_encode(["error"=>"empty username"]);
+            echo json_encode(["error"=>"missing username"]);
             exit;
         }
         $user = new User($db, $parts[2]);
+        echo json_encode(["usernames"=>$user->getFriends()]);
         exit;
     }
