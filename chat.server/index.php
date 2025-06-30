@@ -1,5 +1,4 @@
 <?php
-    session_start();
     use Dotenv\Dotenv;
     
     spl_autoload_register(function($class){
@@ -51,16 +50,5 @@
         }
         $user = new User($db, $parts[2]);
         //echo json_encode(["usernames"=>$user->getFriends()]);
-        exit;
-    }
-
-
-    //decided to have this one just for test purposes
-    else if($parts[1]==="test"&&$method==='GET')
-    {
-        echo json_encode(["username" => $_SESSION['user'] ?? null,
-            "session_id" => session_id(),
-            "session_data" => $_SESSION
-        ]);
         exit;
     }

@@ -15,7 +15,8 @@ export default function LoginForm({isLogin}:LoginFormProps)
             const resp = await fetch(`http://127.0.0.1:8080/${isLogin?"login":"signin"}`,{
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({username, password})
+                body: JSON.stringify({username, password}),
+                credentials: 'include'
             });
 
             if(!resp.ok)
