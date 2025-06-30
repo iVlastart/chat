@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { createTheme } from '@mui/material/styles';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MessageIcon from "@mui/icons-material/Message"
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
@@ -10,7 +9,6 @@ import Grid from '@mui/material/Grid';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Friends from '../pages/Friends';
-
 
 const NAVIGATION = [
   {
@@ -26,6 +24,10 @@ const NAVIGATION = [
     segment: 'chat',
     title: 'Chat',
     icon: <MessageIcon />,
+  },
+  {
+    segment: 'logout',
+    title: 'Log out',
   }
 ];
 
@@ -60,6 +62,7 @@ function useDemoRouter(initialPath:any) {
 }
 
 function PageContent({ pathname }: { pathname: string }) {
+  const nav = useNavigate();
   switch (pathname) {
     case '/':
       return <Friends/>;
@@ -67,6 +70,10 @@ function PageContent({ pathname }: { pathname: string }) {
     case '/chat':
       return <div>Here is going to be the chat</div>;
 
+    case '/logout':
+      sessionStorage.clear();
+      nav('/login');
+      break;
     default:
       return <div>404 - Page not found</div>;
   }
@@ -74,9 +81,8 @@ function PageContent({ pathname }: { pathname: string }) {
 
 export default function App(props:any) {
   const { window } = props;
-  const nav = useNavigate();
   const router = useDemoRouter('/');
-
+  const nav = useNavigate();
   // Remove this const when copying and pasting into your project.
   const demoWindow = window ? window() : undefined;
 
@@ -91,6 +97,7 @@ export default function App(props:any) {
       theme={demoTheme}
       window={demoWindow}
     >
+      <title>Chat App</title>
       <DashboardLayout>
         <PageContainer>
           <Grid container spacing={2}>

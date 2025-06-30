@@ -2,9 +2,9 @@ import { useEffect } from "react";
 
 export default function Friends()
 {
-    const getFriends = async ()=>{
+    /*const getFriends = async ()=>{
         
-    }
+    }*/
 
     useEffect(()=>{
 
