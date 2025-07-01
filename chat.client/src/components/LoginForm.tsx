@@ -16,7 +16,6 @@ export default function LoginForm({isLogin}:LoginFormProps)
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({username, password}),
-                credentials: 'include'
             });
 
             if(!resp.ok)
@@ -27,10 +26,10 @@ export default function LoginForm({isLogin}:LoginFormProps)
             }
 
             const data = await resp.json();
-
+            sessionStorage.setItem('username', username);
             if(data.success) nav('/');
 
-            sessionStorage.setItem('username', username);
+            
         }
         catch(err)
         {
