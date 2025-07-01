@@ -49,6 +49,7 @@
             exit;
         }
         $user = new User($db, $parts[2]);
-        //echo json_encode(["usernames"=>$user->getFriends()]);
+        $result[0]=$user->getFriends();
+        echo json_encode(["usernames"=>$result[0]]);
         exit;
     }
