@@ -8,8 +8,6 @@
         {
             $this->conn = $db->connect();
         }
-
-        //get my id, friend id by my id, get friend info from that
         
         public function getFriends()
         {

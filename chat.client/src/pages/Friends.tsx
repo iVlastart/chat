@@ -1,7 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Friend from "../components/Friend";
 
+interface FriendData {
+    Username: string;
+}
 export default function Friends()
 {
+    const [friends, setFriends] = useState<FriendData[]>([]);
     const getFriends = async ()=>{
         const resp = await fetch(`http://127.0.0.1:8080/friends/${sessionStorage.getItem('username')}`,{
             method: 'GET',
@@ -14,19 +19,20 @@ export default function Friends()
             return;
         }
 
-        //why this can't be a single line 😭
-        const raw_data = await resp.json();
-        const data = JSON.stringify(raw_data);
-        
-        alert(data);
+        const data = await resp.json();
+        setFriends(data.usernames);
     }
 
     useEffect(()=>{
         getFriends();
-    });
+    },[]);
     return(
         <>
-            
+           <div>
+            {friends.map((friend, index)=>(
+                <Friend key={index} username={friend.Username} isOnline={false} lastSeen="today"/>
+            ))}
+            </div> 
         </>
     );
 }

@@ -53,3 +53,12 @@
         echo json_encode(["usernames"=>$result[0]]);
         exit;
     }
+
+    else if($parts[1]==='msg'&&$method==='POST')
+    {
+
+    }
+    else if($parts[1]==='msg'&&$method==='GET')
+    {
+        
+    }
