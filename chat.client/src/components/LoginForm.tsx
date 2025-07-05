@@ -8,6 +8,7 @@ interface LoginFormProps
 
 export default function LoginForm({isLogin}:LoginFormProps)
 {
+    const socket = new WebSocket("");
     const nav = useNavigate();
     const submit = async (username:string, password:string)=>{
         try

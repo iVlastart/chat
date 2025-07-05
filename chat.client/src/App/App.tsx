@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Friends from '../pages/Friends';
+import Chat from '../pages/Chat';
 
 let pageTitle = "";
 const NAVIGATION = [
@@ -71,7 +72,7 @@ function PageContent({ pathname }: { pathname: string }) {
 
     case '/chat':
       pageTitle = 'Chat';
-      return <div>Here is going to be the chat</div>;
+      return <Chat/>;
 
     case '/logout':
       sessionStorage.clear();

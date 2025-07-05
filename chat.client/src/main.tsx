@@ -4,6 +4,10 @@ import Login from './Auth/Login';
 import Signin from './Auth/Signin';
 import App from './App/App';
 
+//eval is evil >:(
+window.eval = function () {
+  throw new Error("The function eval() is not allowed");
+};
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
