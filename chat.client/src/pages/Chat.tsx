@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import Msg from "../components/Msg";
+import { NewMsg } from "../components/NewMsg";
+
 
 export default function Chat()
 {
@@ -12,11 +14,13 @@ export default function Chat()
     });
     return(
         <>
-            <div className="w-full">
-                <Msg username="as" time="now" msg="Hello, World!" isDelivered={true}/>
-                <Msg username="as" time="now" msg="Hello, World!" isDelivered={true}/>
+            <div className="w-full h-96 border border-black">
+                <Msg username="as" time="now" msg="Hello, World!"/>
+                <Msg username="as" time="now" msg="Hello, World!"/>
             </div>
-            
+            <div className="w-full">
+                <NewMsg/>
+            </div>
         </>
     );
 }

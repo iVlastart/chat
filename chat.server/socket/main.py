@@ -19,4 +19,5 @@ async def main():
     async with websockets.serve(handler, HOSTNAME, PORT):
         await asyncio.Future()
 
-asyncio.run(main())
+if __name__ == '__main__':
+    asyncio.run(main())
