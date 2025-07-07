@@ -28,15 +28,15 @@ export default function Msg({username, time, msg}:MsgProps)
             </div>
             <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" 
                     data-dropdown-placement="bottom-start" 
-                    className="p-2 text-sm dark:hover:bg-gray-200"
+                    className="p-2 text-sm"
                             type="button"
                     onClick={()=>setIsOpen(!isOpen)}>
-                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
                     <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                 </svg>
             </button>
             {isOpen && (
-                <div className="relative top-full right-0 mt-2 z-10 divide-y rounded-lg shadow-sm w-40 dark:bg-gray-700 dark:divide-gray-600">
+                <div className="relative top-full right-0 mt-2 z-10 divide-y rounded-lg shadow-sm w-40 bg-gray-700 divide-gray-600">
                     <ul className="py-2 text-sm  dark:text-gray-200">
                         <li><button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Reply</button></li>
                         <li><button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Forward</button></li>

@@ -14,7 +14,7 @@ export default function Chat()
     });
     return(
         <>
-            <div className="w-full h-96 border border-black">
+            <div className="w-full h-[62.5vh]">
                 <Msg username="as" time="now" msg="Hello, World!"/>
                 <Msg username="as" time="now" msg="Hello, World!"/>
             </div>

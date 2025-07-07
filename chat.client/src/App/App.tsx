@@ -18,7 +18,7 @@ const NAVIGATION = [
     title: 'Menu',
   },
   {
-    segment: '',
+    segment: 'friends',
     title: 'Friends',
     icon: <EmojiPeopleIcon/>,
   },
@@ -66,7 +66,7 @@ function useDemoRouter(initialPath:any) {
 function PageContent({ pathname }: { pathname: string }) {
   const nav = useNavigate();
   switch (pathname) {
-    case '/':
+    case '/friends':
       pageTitle = 'Friends';
       return <Friends/>;
 
@@ -84,7 +84,7 @@ function PageContent({ pathname }: { pathname: string }) {
 }
 
 export default function App() {
-  const router = useDemoRouter('/');
+  const router = useDemoRouter('/friends');
   const nav = useNavigate();
 
   useEffect(()=>{

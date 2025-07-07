@@ -8,7 +8,6 @@ interface LoginFormProps
 
 export default function LoginForm({isLogin}:LoginFormProps)
 {
-    const socket = new WebSocket("");
     const nav = useNavigate();
     const submit = async (username:string, password:string)=>{
         try
@@ -22,7 +21,7 @@ export default function LoginForm({isLogin}:LoginFormProps)
             if(!resp.ok)
             {
                 const err = await resp.json();
-                console.log("Resp error: "+err);
+                console.error("Resp error: "+err);
                 return;
             }
 

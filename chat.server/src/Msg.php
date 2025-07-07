@@ -9,4 +9,10 @@
             $this->conn = $db->connect();
         }
 
+        public function addMsg(int $id, string $msg)
+        {
+            $sql = "INSERT INTO msg (UserID, Msg) VALUES (:UserID, :Msg)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(":UserID", $id, PDO::PARAM_INT);
+        }
     }

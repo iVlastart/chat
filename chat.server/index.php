@@ -54,11 +54,13 @@
         exit;
     }
 
-    else if($parts[1]==='msg'&&$method==='POST')
+    else if($parts[1]==='addMsg'&&$method==='GET')
     {
-
-    }
-    else if($parts[1]==='msg'&&$method==='GET')
-    {
+        if($parts[2]==="")
+        {
+            http_response_code(400);
+            echo json_encode(["error"=>"No msg was provided"]);
+            exit;
+        }
         
     }
