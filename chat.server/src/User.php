@@ -22,18 +22,18 @@
             }
             return $result;
         }
-        private function getUserID()
+        public function getUserID($username)
         {
             $sql = "SELECT ID FROM users WHERE Username=:Username";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindValue(":Username", $this->username, PDO::PARAM_STR);
+            $stmt->bindValue(":Username", $username, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
         private function getUsersID(string $getID, string $stmtID, string $table)
         {
-            $userID = $this->getUserID();
+            $userID = $this->getUserID($this->username);
             $sql = "SELECT $getID FROM $table WHERE $stmtID=:ID";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindValue(":ID", $userID['ID'], PDO::PARAM_INT); // Extract the actual ID
