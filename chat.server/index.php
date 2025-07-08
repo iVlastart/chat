@@ -59,8 +59,14 @@
         $raw_data = file_get_contents('php://input');
         $data = json_decode($raw_data, true);
         $user = new User($db, $data['username']);
-        $id = $user->getUserID($data['username']);
+        $userData = $user->getUserID($data['username']);
+        $id = $userData['ID'];
         $msg = new Msg($db);
         $msg->addMsg($id, $data['msg']);
         exit;
+    }
+
+    else if($parts[1]==='getMsgs'&&$method==='GET')
+    {
+        
     }
