@@ -14,5 +14,7 @@
             $sql = "INSERT INTO msg (UserID, Msg) VALUES (:UserID, :Msg)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindValue(":UserID", $id, PDO::PARAM_INT);
+            $stmt->bindValue(":Msg", $msg, PDO::PARAM_STR);
+            $stmt->execute();
         }
     }

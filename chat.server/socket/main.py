@@ -12,7 +12,7 @@ async def handler(socket, path):
     print(f'Client connected: {socket.remote_address}')
     async for message in socket:
         print(f'Received a message: {message}')
-        await socket.send(f'Echo: {message}')
+        await socket.send(f'{message}')
 
 async def main():
     print(f'WebSocket server starting on ws://{HOSTNAME}:{PORT}')
