@@ -68,5 +68,7 @@
 
     else if($parts[1]==='getMsgs'&&$method==='GET')
     {
-        
+        $msg = new Msg($db);
+        echo json_encode($msg->getMsgs());
+        exit;
     }

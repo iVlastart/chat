@@ -8,7 +8,7 @@ interface NewMsgProps
 export function NewMsg({socket}:NewMsgProps) {
   async function submit(username:string, msg:string)
   {
-    /*const resp = await fetch(`http://127.0.0.1:8080/addMsg`,{
+    const resp = await fetch(`http://127.0.0.1:8080/addMsg`,{
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({username, msg})
@@ -19,7 +19,7 @@ export function NewMsg({socket}:NewMsgProps) {
       const err = await resp.json();
       console.error('Resp error: '+err);
       return;
-    }*/
+    }
   }
   const sendData = (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();

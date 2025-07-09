@@ -20,14 +20,24 @@ export default function Chat()
         if(!resp.ok)
             throw new Error("getMsgs error");
         
-        
+        const data = await resp.json();
+        data.forEach((msg:any)=>{
+            setMsgs((prev)=>[
+                ...prev,
+                {
+                    username: msg['Username'],
+                    msg: msg['Msg'],
+                    time: msg['Time']
+                }
+            ])
+        });
     }
     const [msgs, setMsgs] = useState<MsgProps[]>([]);
     const socket = new WebSocket("http://127.0.0.1:6969");
     useEffect(()=>{
         socket.OPEN;
         getMsgs();
-    });
+    }, []);
 
     socket.onmessage = function(event) {
     const raw = event.data as string;
