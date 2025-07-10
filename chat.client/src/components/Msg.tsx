@@ -1,5 +1,6 @@
 import { useState } from "react";
 import pfp from '../../public/defaultpfp.jpg';
+import MsgMenu from "./msgMenu";
 
 interface MsgProps
 {
@@ -35,17 +36,9 @@ export default function Msg({username, time, msg}:MsgProps)
                     <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
                 </svg>
             </button>
-            {isOpen && (
-                <div className="relative top-full right-0 mt-2 z-10 divide-y rounded-lg shadow-sm w-40 bg-gray-700 divide-gray-600">
-                    <ul className="py-2 text-sm  dark:text-gray-200">
-                        <li><button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Reply</button></li>
-                        <li><button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Forward</button></li>
-                        <li><button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Copy</button></li>
-                        <li><button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Report</button></li>
-                        <li><button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Delete</button></li>
-                    </ul>
-                </div>
-            )}
+            {isOpen &&
+                <MsgMenu username={username} msg={msg}/>
+            }
         </div>
     );
 }
