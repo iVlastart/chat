@@ -10,13 +10,46 @@ interface MsgProps
 }
 export default function Chat()
 {
+    const [msgs, setMsgs] = useState<MsgProps[]>([]);
+    const [socket, setSocket] = useState<WebSocket | null>(null);
+    useEffect(()=>{
+        const sock = new WebSocket("http://127.0.0.1:6969");
+        setSocket(sock);
+
+        sock.onmessage = function(event) {
+        const raw = event.data as string;
+        const strJSON = raw.replace(/^Echo:\s*/, "");
+
+        try
+        {
+            const data = JSON.parse(strJSON);
+            console.log(`${data.username} said "${data.msg}"`);
+            setMsgs((prev)=>[
+                ...prev,
+                {
+                   username: data.username,
+                    msg: data.msg,
+                    time: new Date().toLocaleTimeString()
+                }
+            ]);
+        }
+        catch(e: any)
+        {
+            throw new Error("invalid json ", e);
+        }
+        
+    };
+
+        return () => {
+            sock.close();
+        };
+    }, []);
     async function getMsgs()
     {
         const resp = await fetch('http://127.0.0.1:8080/getMsgs',{
             method: "GET",
             headers: {"Content-Type": "application/json"},
         });
-
         if(!resp.ok)
             throw new Error("getMsgs error");
         
@@ -32,36 +65,11 @@ export default function Chat()
             ])
         });
     }
-    const [msgs, setMsgs] = useState<MsgProps[]>([]);
-    const socket = new WebSocket("http://127.0.0.1:6969");
+    
     useEffect(()=>{
-        socket.OPEN;
         getMsgs();
     }, []);
 
-    socket.onmessage = function(event) {
-    const raw = event.data as string;
-
-    const strJSON = raw.replace(/^Echo:\s*/, "");
-
-    try
-    {
-      const data = JSON.parse(strJSON);
-      
-      setMsgs((prev)=>[
-        ...prev,
-        {
-            username: data.username,
-            msg: data.msg,
-            time: new Date().toLocaleTimeString()
-        }
-      ])
-    }
-    catch(e: any)
-    {
-      throw new Error("invalid json ", e);
-    }
-};
     return(
         <>
             <div className="w-full h-[62.5vh] overflow-y-auto">
@@ -72,7 +80,7 @@ export default function Chat()
                 }
             </div>
             <div className="w-full">
-                <NewMsg socket={socket}/>
+                {socket && <NewMsg socket={socket} />}
             </div>
         </>
     );
